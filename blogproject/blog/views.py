@@ -3,12 +3,16 @@ from .models import Post, Category
 from markdown import markdown
 from comments.forms import CommentForm
 from django.http import HttpResponse
+from django.views.generic import ListView
 
-
-def index(request):
-    post_list = Post.objects.all()
-    return render(request, 'blog/index.html', context={'post_list': post_list})
-    # return HttpResponse('<h1>hello world</h1>')
+class IndexView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+# def index(request):
+#     post_list = Post.objects.all()
+#     return render(request, 'blog/index.html', context={'post_list': post_list})
+#     # return HttpResponse('<h1>hello world</h1>')
 
 
 def detail(request, pk):
